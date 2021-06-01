@@ -1,0 +1,37 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class CreateCashMoneyTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::create('cash_money', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger("cash_id");
+            $table->unsignedBigInteger("money_id");
+            $table->foreign('cash_id')->references('id')->on('cash');
+            $table->foreign('money_id')->references('id')->on('money');
+            $table->integer("priority");
+            $table->integer("amount");
+            $table->timestamps();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::dropIfExists('cash_money');
+    }
+}
